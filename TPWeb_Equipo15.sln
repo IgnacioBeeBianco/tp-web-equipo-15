@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarritoCompras-Web", "CarritoCompras-Web\CarritoCompras-Web.csproj", "{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{9D4F8B20-AFF2-45E9-B94D-5AC24771B63A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{A84DE11A-46F8-4633-8B94-DE56D254DA68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{7E955314-3406-4FF1-B730-62DC305201E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarritoCompras-Web", "..\..\TPWeb_Equipo-15\CarritoCompras-Web\CarritoCompras-Web.csproj", "{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D4F8B20-AFF2-45E9-B94D-5AC24771B63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D4F8B20-AFF2-45E9-B94D-5AC24771B63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D4F8B20-AFF2-45E9-B94D-5AC24771B63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{7E955314-3406-4FF1-B730-62DC305201E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E955314-3406-4FF1-B730-62DC305201E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E955314-3406-4FF1-B730-62DC305201E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
