@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{7E955314-3406-4FF1-B730-62DC305201E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarritoCompras-Web", "..\..\TPWeb_Equipo-15\CarritoCompras-Web\CarritoCompras-Web.csproj", "{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarritoCompras-Web", "CarritoCompras-Web\CarritoCompras-Web.csproj", "{59D9073A-B577-47DF-9EFA-7DE7ABD1C54E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
