@@ -35,21 +35,7 @@ namespace Negocio
                 throw ex;
             }
         }
-        //VER SI SE PUEDE USAR YA QUE SE DEBE CREAR UN SP EN LA BASE DE DATOS!!
-        public List<Articulo> listarConSP()
-        {
-            try
-            {
-                List<Articulo> artList = this.ArticuloDAO.GetArticulosConSP();
-                artList.ForEach(articulo => articulo.ImagenURL = this.ImagenNegocio.GetImagens(articulo.Id));
-                return artList;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
+        
         public List<Articulo> GetArticulos(int idMarca, int idCategoria)
         {
             try
