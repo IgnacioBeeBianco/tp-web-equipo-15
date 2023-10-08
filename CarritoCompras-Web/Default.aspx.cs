@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
@@ -50,5 +51,70 @@ namespace CarritoCompras_Web
             return "/Resources/OIP.jpg"; // Asumiendo que esta es una ruta válida
         }
 
+        protected void rptArticulos_ItemCreated(object sender, RepeaterItemEventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                if(e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                {
+                    Articulo articulo = (Articulo) e.Item.DataItem;
+                    Image imgArticulo = (Image)e.Item.FindControl("imgArticulo"); 
+                    if (articulo.ImagenURL.Count > 0 || articulo.ImagenURL != null)
+                    {
+                        try
+                        {
+                        
+                            if (IsValidUrl(articulo.ImagenURL.First().ImagenUrl) == HttpStatusCode.OK)
+                            {
+                                imgArticulo.ImageUrl = articulo.ImagenURL.First().ImagenUrl;
+                            }
+                        
+                        }catch (Exception)
+                        {
+                            imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
+                        }
+
+                    }
+                    else
+                    {
+                        imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
+                    }
+            }
+
+            }
+        }
+
+        private HttpStatusCode IsValidUrl(string url)
+        {
+            try
+            {
+                HttpWebRequest request = WebRequest.CreateHttp(url);
+                request.Method = "GET";
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    return response.StatusCode;
+                }
+            }
+            catch(Exception e) 
+            {
+                throw e;
+            }
+        }
+
+        public void OnNextImageBtnClick()
+        {
+
+        }
+
+        protected void btnNextImage_Click(object sender, EventArgs e)
+        {
+            Button btnNextImage = (Button)sender;
+            RepeaterItem item = (RepeaterItem)btnNextImage.NamingContainer;
+        }
+
+        protected void btnPrevImage_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
