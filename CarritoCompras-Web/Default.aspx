@@ -7,8 +7,9 @@
         <ItemTemplate>
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src='<%# Eval("ImagenURL") %>' class="card-img-top" alt="Imagen del artículo" />
+
                     <div class="card-body">
+                        <asp:Image runat="server" ImageUrl='<%# ((List<Dominio.Imagen>)Eval("ImagenURL")).Count > 0 ? ((List<Dominio.Imagen>)Eval("ImagenURL")).First().ImagenUrl : "~/Ruta/ImagenPorDefecto.jpg" %>' CssClass="img-fluid" />
                         <h5 class="card-title"><%# Eval("Nombre") %></h5>
                         <p class="card-text"><%# Eval("Descripcion") %></p>
                         <p class="card-text">$<%# Eval("Precio") %></p>
