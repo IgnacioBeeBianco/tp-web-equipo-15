@@ -15,20 +15,17 @@
     <form id="form1" runat="server">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="Default.aspx">Inicio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" href="DetalleArticulo.aspx">Detalle Articulo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
+                            <a class="nav-link" href="#">Carrito Compras</a>
                         </li>
                     </ul>
                 </div>
@@ -41,7 +38,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-12 text-center">
-                                <h3>Trabajo practico 5</h3>
+                                <h3>Trabajo practico 4</h3>
                                 <p>Carrito de compras utilizando ASP.NET</p>
                             </div>
                         </div>

@@ -20,6 +20,7 @@
                         <p class="card-text"><%# Eval("Descripcion") %></p>
                         <p class="card-text">$<%# Eval("Precio") %></p>
                         <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                        <a href="DetalleArticulo.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Detalle Articulo</a>
                     </div>
                 </div>
             </div>
