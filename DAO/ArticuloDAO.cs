@@ -76,40 +76,7 @@ namespace DAO
                 accesoADatos.cerrarConexion();
             }
         }
-        //VER SI SE PUEDE USAR YA QUE SE DEBE CREAR UN SP EN LA BASE DE DATOS!!
-        public List<Articulo> GetArticulosConSP()
-        {
-            List<Articulo> listaArticulos = new List<Articulo>();
-            AccesoADatos accesoADatos = new AccesoADatos("server=.; database=CATALOGO_P3_DB; integrated security=true");
-            try
-            {
-                accesoADatos.AbrirConexion();
-
-                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, M.Id as MarcaId ,C.Descripcion as Categoria, C.Id as CategoriaId, A.Precio FROM ARTICULOS A INNER JOIN MARCAS M ON A.IdMarca = M.Id INNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id ";
-
-                accesoADatos.consultar(consulta);
-                accesoADatos.ejecutarLectura();
-
-                while (accesoADatos.Lector.Read())
-                {
-                    Articulo articulo = new Articulo();
-                    this.LoadArticle(ref articulo, ref accesoADatos);
-                    listaArticulos.Add(articulo);
-                }
-
-                return listaArticulos;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                accesoADatos.cerrarConexion();
-            }
-        }
-
+        
         public List<Articulo> GetArticulos(int marcaId, int categoriaId)
         {
             try
