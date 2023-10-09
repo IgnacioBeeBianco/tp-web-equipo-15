@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using CarritoCompras_Web.Properties;
+using Dominio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -19,36 +21,27 @@ namespace CarritoCompras_Web
     public partial class Default : System.Web.UI.Page
     {
 
-        private List<Articulo> listaArticulos = new List<Articulo>();
-        private int imageIndex = 0; // Índice de la imagen actual
+        private List<Articulo> listaArticulos;
+        public int itemsToCart = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.listaArticulos = CargarArticulos();
+
             if (!IsPostBack)
             {
-                CargarArticulos();
+
+                rptArticulos.DataSource = listaArticulos;
+                rptArticulos.DataBind();
             }
             
         }
 
-        private void CargarArticulos()
+        private List<Articulo> CargarArticulos()
         {
-            ArticuloNegocio negocio = new ArticuloNegocio(); // Asegúrate de crear una instancia de tu negocio.
-            this.listaArticulos = negocio.listar();
-            
-            rptArticulos.DataSource = listaArticulos;
-            rptArticulos.DataBind();
-            
-        }
+            ArticuloNegocio negocio = new ArticuloNegocio(); 
 
-        protected string GetImage(object imagenesObj)
-        {
-            if (imagenesObj != null && imagenesObj is List<Imagen> imagenes && imagenes.Count > 0)
-            {
-                return imagenes[0].ImagenUrl;
-            }
+            return negocio.listar();
 
-            // Si no hay imágenes o la lista está vacía, puedes devolver una URL por defecto válida.
-            return "/Resources/OIP.jpg"; // Asumiendo que esta es una ruta válida
         }
 
         protected void rptArticulos_ItemCreated(object sender, RepeaterItemEventArgs e)
@@ -79,9 +72,10 @@ namespace CarritoCompras_Web
                     {
                         imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
                     }
-            }
+                }
 
             }
+            
         }
 
         private HttpStatusCode IsValidUrl(string url)
@@ -108,13 +102,49 @@ namespace CarritoCompras_Web
 
         protected void btnNextImage_Click(object sender, EventArgs e)
         {
+            
             Button btnNextImage = (Button)sender;
             RepeaterItem item = (RepeaterItem)btnNextImage.NamingContainer;
+            Image imgArticulo = (Image)item.FindControl("imgArticulo");
+            Articulo articulo = listaArticulos[item.ItemIndex];
+
+            string currentUrl = imgArticulo.ImageUrl;
+
+            int currentIndex = articulo.ImagenURL.FindIndex(img => img.ImagenUrl == currentUrl);
+
+            try
+            {
+                string nextUrl = articulo.ImagenURL[currentIndex + 1].ImagenUrl;
+                if (IsValidUrl(nextUrl) == HttpStatusCode.OK)
+                {
+                    imgArticulo.ImageUrl = nextUrl;
+                }
+                else
+                {
+                    imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
         }
 
         protected void btnPrevImage_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void AddToCart_Click(object sender, EventArgs e)
+        {
+            this.itemsToCart++;
+
+        }
+
+        protected int GetItemsInCart()
+        {
+            return itemsToCart;
         }
     }
 }

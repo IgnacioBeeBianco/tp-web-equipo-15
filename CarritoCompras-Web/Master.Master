@@ -28,13 +28,14 @@
                             <a class="nav-link" href="#">Carrito Compras</a>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
-        <div class="container vh-100 vw-100">
+        <div class="container-fluid vh-100 vw-100 vw-100" style="padding: 0">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-            <footer class="bg-dark text-white p-4 w-100">
+            <footer class="bg-dark text-white p-4">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-12 text-center">
