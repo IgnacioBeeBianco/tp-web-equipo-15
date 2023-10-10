@@ -69,6 +69,7 @@
     <Content Include="DetalleArticulo.aspx" />
     <Content Include="Global.asax" />
     <None Include="Resources\OIP.jpg" />
+    <None Include="Resources\pexels-jéshoots-238118.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

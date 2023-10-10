@@ -69,5 +69,15 @@ namespace CarritoCompras_Web.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pexels_jéshoots_238118 {
+            get {
+                object obj = ResourceManager.GetObject("pexels_jéshoots_238118", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
