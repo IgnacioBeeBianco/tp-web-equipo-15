@@ -41,10 +41,17 @@ namespace CarritoCompras_Web
                 lblDescripcion.Text = articulo.Descripcion;
                 lblCategoria.Text = articulo.Categoria.Descripcion;
                 lblMarca.Text = articulo.Marca.Descripcion;
+                lblPrecio.Text = articulo.Precio.ToString();
 
+                ImagenDAO imagenDAO = new ImagenDAO();
+                List<Imagen> imagenes = imagenDAO.GetImagenes(articuloID);
 
+                if (imagenes != null && imagenes.Count > 0)
+                {
+                    rptCarousel.DataSource = imagenes;
+                    rptCarousel.DataBind();
+                }
             }
         }
-
     }
 }
