@@ -16,50 +16,70 @@
     </div>
     <section>
         <div class="row">
-            <div class="col-3 justify-content-center">
-            <div class="filter-container m-3">
-                <h3>Categorías</h3>
+            <div class="col-2 justify-content-center">
+            <div class="filter-container m-5">
+                <div class="title text-center">
+                    <h3>Categorías</h3>
+
+                </div>
+                <div class="brand-filter">
                 <h5>Marca</h5>
-                <div class="form-check">
-                    <asp:CheckBox ID="CheckBox1" runat="server" Text="Samsung" CssClass="text-start"/>
+                    <asp:Repeater ID="rptBrands" runat="server">
+                        <ItemTemplate>
+                            <div class="form-check">
+                                <asp:CheckBox runat="server" Text='<%# Eval("Descripcion") %>' CssClass="text-start"/>
+                            </div>
+
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
-                <div class="form-check">
-                    <asp:CheckBox ID="CheckBox2" runat="server" Text="Motorola" CssClass="text-start"/>
+                <div class="category-filter">
+                    <h5 class="mt-4">Categoría</h5>
+                    <div class="d-flex flex-column">
+                        <asp:Repeater ID="rptCategoria" runat="server">
+                            <ItemTemplate>
+                                <div class="form-check">
+                                    <asp:CheckBox  runat="server" Text='<%# Eval("Descripcion") %>' CssClass="flex-row; p-1" />
+
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+
+                    </div>
+
+
                 </div>
-                <div class="form-check">
-                    <asp:CheckBox ID="CheckBox3" runat="server" Text="Sony" CssClass="text-start"/>
-                </div>
-                <div class="form-check">
-                    <asp:CheckBox ID="CheckBox4" runat="server" Text="Apple" CssClass="text-start"/>
-                </div>
-                <h5 class="mt-4">Precio</h5>
                 <!-- Agrega aquí tus controles para filtrar por precio -->
             </div>
         </div>
-            <div class="container d-flex justify-content-center flex-wrap p-4 gap-2 col-8">
-                <asp:Repeater ID="rptArticulos" runat="server" OnItemCreated="rptArticulos_ItemCreated">
-                    <ItemTemplate>
-                        <div class="col-md-4">
-                            <div class="card mb-4">
+            <div class="container d-flex flex-column justify-content-center p-4 gap-2 col-10">
+                <div class="sorts">
+                    <asp:DropDownList ID="SortOptionsDropDown" runat="server" AutoPostBack="true" OnSelectedIndexChanged="SortOptionsDropDown_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <div class="items d-flex flex-wrap ">
+                    <asp:Repeater ID="rptArticulos" runat="server">
+                        <HeaderTemplate>
+                        
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <div class="col-md-3">
+                                <div class="card mb-4" style="width:20rem;">
 
-                                <div class="card-body text-center">
-                                    <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top" />
-                                    <div class="btn-container mt-3">
-                                        <asp:Button ID="btnPrevImage" runat="server" Text="Prev" OnClick="btnPrevImage_Click" CssClass="btn btn-primary"/>
-                            
-                                        <asp:Button ID="btnNextImage" runat="server" Text="Next" OnClick="btnNextImage_Click" CssClass="btn btn-primary"/>
-
+                                    <div class="card-body text-center">
+                                        <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top" ImageUrl='<%# ((List<Dominio.Imagen>)Eval("ImagenURL")).Count > 0 ? ((List<Dominio.Imagen>)Eval("ImagenURL")).First().ImagenUrl : "~/Resources/OIP.jpg" %>' />
+                                    
+                                        <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
+                                        <p class="card-text"><%# Eval("Descripcion") %></p>
+                                        <p class="card-text">$<%# Eval("Precio") %></p>
+                                        <asp:Button CssClass="btn btn-primary" runat="server" Text="Agregar al carrito"/>
+                                        <a href="DetalleArticulo.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Ver detalle</a>
                                     </div>
-                                    <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
-                                    <p class="card-text"><%# Eval("Descripcion") %></p>
-                                    <p class="card-text">$<%# Eval("Precio") %></p>
-                                    <asp:Button CssClass="btn btn-primary" runat="server" Text="Agregar al carrito"/>
-                                    <a href="DetalleArticulo.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Ver detalle</a>
                                 </div>
                             </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+                        </ItemTemplate>
+                    </asp:Repeater>
+
+                </div>
 
             </div>
         </div>

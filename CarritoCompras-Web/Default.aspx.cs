@@ -22,14 +22,26 @@ namespace CarritoCompras_Web
     {
 
         private List<Articulo> listaArticulos;
+        private List<Categoria> listaCategorias;
+        private List<Marca> listaMarca;
+        private List<string> sortOptions = new List<string>();
         public int itemsToCart = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             this.listaArticulos = CargarArticulos();
+            this.listaCategorias = CargarCategorias();
+            this.listaMarca = CargarMarca();
+            this.sortOptions.Add("Por menor precio");
+            this.sortOptions.Add("Por mayor precio");
 
             if (!IsPostBack)
             {
-
+                SortOptionsDropDown.DataSource = sortOptions;
+                SortOptionsDropDown.DataBind();
+                rptBrands.DataSource = listaMarca;
+                rptBrands.DataBind();
+                rptCategoria.DataSource = listaCategorias;
+                rptCategoria.DataBind();
                 rptArticulos.DataSource = listaArticulos;
                 rptArticulos.DataBind();
             }
@@ -42,6 +54,18 @@ namespace CarritoCompras_Web
 
             return negocio.listar();
 
+        }
+
+        private List<Categoria> CargarCategorias()
+        {
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            return categoriaNegocio.List();
+        }
+
+        private List<Marca> CargarMarca()
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            return marcaNegocio.list();
         }
 
         protected void rptArticulos_ItemCreated(object sender, RepeaterItemEventArgs e)
@@ -145,6 +169,23 @@ namespace CarritoCompras_Web
         protected int GetItemsInCart()
         {
             return itemsToCart;
+        }
+
+        protected void SortOptionsDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = SortOptionsDropDown.SelectedValue;
+
+            if (selectedValue == "Por menor precio")
+            {
+                listaArticulos = listaArticulos.OrderBy(item => item.Precio).ToList();
+            }
+            else if (selectedValue == "Por mayor precio")
+            {
+                listaArticulos = listaArticulos.OrderByDescending(item => item.Precio).ToList();
+            }
+
+            rptCategoria.DataSource = listaArticulos;
+            rptCategoria.DataBind();
         }
     }
 }
