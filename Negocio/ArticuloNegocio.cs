@@ -183,5 +183,24 @@ namespace Negocio
                 throw e;
             }
         }
+
+        public Articulo ObtenerDetallesArticulo(int articuloID)
+        {
+            try
+            {
+                // Aquí, puedes utilizar tu ArticuloDAO o cualquier otro mecanismo
+                // para obtener los detalles del artículo según su ID.
+                Articulo articulo = this.ArticuloDAO.ObtenerArticuloPorID(articuloID);
+
+                // Si se encuentra el artículo, puedes retornarlo.
+                return articulo;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones en caso de error.
+                throw ex;
+            }
+        }
+
     }
 }

@@ -49,17 +49,17 @@
                             
                                         <asp:Button ID="btnNextImage" runat="server" Text="Next" OnClick="btnNextImage_Click" CssClass="btn btn-primary"/>
 
-                                    </div>
-                                    <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
-                                    <p class="card-text"><%# Eval("Descripcion") %></p>
-                                    <p class="card-text">$<%# Eval("Precio") %></p>
-                                    <asp:Button CssClass="btn btn-primary" runat="server" Text="Agregar al carrito"/>
-                                    <a href="DetalleArticulo.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Ver detalle</a>
-                                </div>
                             </div>
+                            <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
+                            <p class="card-text"><%# Eval("Descripcion") %></p>
+                            <p class="card-text">$<%# Eval("Precio") %></p>
+                            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                            <asp:Button Text="Ver detalle" runat="server" ID="btnVerDetalle" CssClass="btn btn-primary" OnClick="btnVerDetalle_Click" CommandArgument='<%#Eval("Id")%>' CommandName="ArticuloID"/>
                         </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
 
             </div>
         </div>

@@ -146,5 +146,12 @@ namespace CarritoCompras_Web
         {
             return itemsToCart;
         }
+
+        protected void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            string idArticulo = ((Button)sender).CommandArgument;
+            Response.Redirect("DetalleArticulo.aspx?id=" + idArticulo);
+
+        }
     }
 }

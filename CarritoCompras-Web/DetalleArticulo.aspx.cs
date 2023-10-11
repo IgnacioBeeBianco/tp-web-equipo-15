@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using Negocio;
+using DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +16,35 @@ namespace CarritoCompras_Web
         {
             if (!IsPostBack)
             {
-                // Verifica si el parámetro "id" existe en la URL
-                if (Request.QueryString["Id"] != null)
-                {
-                    // Obtén el ID del artículo de la URL
-                    int articuloID = Convert.ToInt32(Request.QueryString["Id"]);
-
-                    // Utiliza el ID para cargar y mostrar los detalles del artículo
-                    lblID.Text = "ID: " + articuloID.ToString();
-                }
-                else
-                {
-                    lblError.Text= "ERROR, No hay ningun articulo seleccionado para ver el detalle";
-                }
+                DetalleArt();
             }
 
         }
+
+        public void DetalleArt()
+        {
+            int articuloID = 0;
+
+            if (Request.QueryString["Id"] != null)
+            {
+                articuloID = Convert.ToInt32(Request.QueryString["Id"]);
+            }
+
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo articulo = negocio.ObtenerDetallesArticulo(articuloID);
+
+            if (articulo != null)
+            {
+                lblID.Text = articulo.Id.ToString();
+                lblCode.Text = articulo.Code.ToString();
+                lblNombre.Text = articulo.Nombre;
+                lblDescripcion.Text = articulo.Descripcion;
+                lblCategoria.Text = articulo.Categoria.Descripcion;
+                lblMarca.Text = articulo.Marca.Descripcion;
+
+
+            }
+        }
+
     }
 }

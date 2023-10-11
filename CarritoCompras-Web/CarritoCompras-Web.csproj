@@ -119,6 +119,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAO\DAO.csproj">
+      <Project>{9d4f8b20-aff2-45e9-b94d-5ac24771b63a}</Project>
+      <Name>DAO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
       <Project>{A84DE11A-46F8-4633-8B94-DE56D254DA68}</Project>
       <Name>Dominio</Name>

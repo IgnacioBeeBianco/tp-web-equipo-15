@@ -543,5 +543,39 @@ namespace DAO
                 datos.cerrarConexion();
             }
         }
+
+        public Articulo ObtenerArticuloPorID(int articuloID)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+            accesoADatos.LimpiarParametros();
+            accesoADatos.consultar("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, M.Id as MarcaId, C.Descripcion as Categoria, C.Id as CategoriaId, A.Precio FROM ARTICULOS A INNER JOIN MARCAS M ON A.IdMarca = M.Id INNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id WHERE A.Id = @ArticuloID");
+            accesoADatos.setearParametro("@ArticuloID", articuloID);
+
+            try
+            {
+                accesoADatos.AbrirConexion();
+                accesoADatos.ejecutarLectura();
+
+                if (accesoADatos.Lector.Read())
+                {
+                    Articulo articulo = new Articulo();
+                    LoadArticle(ref articulo, ref accesoADatos);
+
+                    return articulo;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+
+            return null; // Si no se encuentra el artículo con el ID especificado.
+        }
+
+
     }
 }
