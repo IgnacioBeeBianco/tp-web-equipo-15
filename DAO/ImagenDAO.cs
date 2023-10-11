@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DAO
 {
     public class ImagenDAO
@@ -34,6 +35,7 @@ namespace DAO
                     imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
                     imagenes.Add(imagen); 
                 }
+
                 return imagenes;
             }
             catch (Exception ex)
@@ -164,5 +166,6 @@ namespace DAO
                 datos.cerrarConexion();
             }
         }
+
     }
 }

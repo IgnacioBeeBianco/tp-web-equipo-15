@@ -1,49 +1,79 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="DetalleArticulo.aspx.cs" Inherits="CarritoCompras_Web.DetalleArticulo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .info-container {
+            text-align: left; /* Alinea el contenido al centro izquierdo */
+            margin: 0 auto; /* Centra el contenido horizontalmente en el contenedor */
+            max-width: 300px; /* Establece un ancho máximo para el contenedor (ajústalo según tus necesidades) */
+        }
+
+            .info-container label {
+                display: block;
+                margin-bottom: 10px; /* Espacio vertical entre etiquetas */
+            }
+
+        <style>
+        .container {
+            text-align: left; /* Alinea el contenido al centro izquierdo */
+        }
+
+        .card {
+            float: left; /* Hace que los elementos floten a la izquierda */
+            margin-right: 20px; /* Espacio horizontal entre elementos */
+        }
+
+        .text-center {
+            text-align: left; /* Alinea los botones al centro horizontalmente */
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div>
-        <asp:Label Text="" runat="server" ID="lblID" />
-        <asp:Label Text="" runat="server" ID="lblCode" />
-        <asp:Label Text="" runat="server" ID="lblNombre" />
-        <asp:Label Text="" runat="server" ID="lblDescripcion" />
-        <asp:Label Text="" runat="server" ID="lblMarca" />
-        <asp:Label Text="" runat="server" ID="lblCategoria" />
-        <asp:Label Text="" runat="server" ID="lblPrecio" />
-    </div>
-    
-    <div>
-        <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+    <div class="info-container">
+        <div>
 
-            <ol class="carousel-indicators">
-                <li data-target="#imageCarousel" runat="server"></li>
-            </ol>
-
-
-            <div class="carousel-inner text-center">
-                <asp:Repeater ID="rptCarousel" runat="server">
-                    <ItemTemplate>
-                        <div class='<%# Container.ItemIndex == 0 ? "carousel-item active" : "carousel-item" %>'>
-                            <img src='<%# Eval("ImagenURL") %>' alt="Imagen de artículo"  width="800" height="600"/>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
-
-
-            <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-            </a>
-            <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Siguiente</span>
-            </a>
+            <asp:Label Text="" runat="server" ID="lblID" />
         </div>
+        <div>
+            <asp:Label Text="Codigo: " runat="server"/>
+            <asp:Label Text="" runat="server" ID="lblCode" />
+        </div>
+        <div>
+            <asp:Label Text="Nombre: " runat="server"/>
+            <asp:Label Text="" runat="server" ID="lblNombre" />
+        </div>
+        <div>
+            <asp:Label Text="Descripción: " runat="server"/>
+            <asp:Label Text="" runat="server" ID="lblDescripcion" />
+        </div>
+        <div>
+            <asp:Label Text="Marca: " runat="server"/>
+            <asp:Label Text="" runat="server" ID="lblMarca" />
+        </div>
+        <div>
+            <asp:Label Text="Categoria: " runat="server"/>
+            <asp:Label Text="" runat="server" ID="lblCategoria" />
+        </div>
+        <div>
+            <asp:Label Text="Precio: $" runat="server"/>
+            <asp:Label Text="" runat="server" ID="lblPrecio" />
+        </div>
+    </div>
 
+    <div class="container">
+        <asp:Repeater ID="rptImagenes" runat="server">
+            <ItemTemplate>
+                <div class="card">
+                    <img src='<%# Eval("ImagenUrl") %>' class="card-img-top">
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
 
+        <div class="text-center">
+            <asp:Button Text="Prev" runat="server" ID="btnPrev" class="btn btn-primary" OnClick="btnPrev_Click" />
+            <asp:Button Text="Next" runat="server" ID="btnNext" class="btn btn-primary" OnClick="btnNext_Click" />
+        </div>
     </div>
 
 

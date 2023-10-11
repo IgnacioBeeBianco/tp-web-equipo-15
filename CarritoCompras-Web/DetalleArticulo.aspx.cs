@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace CarritoCompras_Web
 {
@@ -16,19 +17,24 @@ namespace CarritoCompras_Web
         {
             if (!IsPostBack)
             {
-                DetalleArt();
+                int articuloID = ObtenerIDArticuloDesdeQueryString();
+                DetalleArt(articuloID);
             }
 
         }
 
-        public void DetalleArt()
+        private int ObtenerIDArticuloDesdeQueryString()
         {
             int articuloID = 0;
-
             if (Request.QueryString["Id"] != null)
             {
                 articuloID = Convert.ToInt32(Request.QueryString["Id"]);
             }
+            return articuloID;
+        }
+
+        public void DetalleArt(int articuloID)
+        {
 
             ArticuloNegocio negocio = new ArticuloNegocio();
             Articulo articulo = negocio.ObtenerDetallesArticulo(articuloID);
@@ -42,16 +48,23 @@ namespace CarritoCompras_Web
                 lblCategoria.Text = articulo.Categoria.Descripcion;
                 lblMarca.Text = articulo.Marca.Descripcion;
                 lblPrecio.Text = articulo.Precio.ToString();
-
+                
                 ImagenDAO imagenDAO = new ImagenDAO();
                 List<Imagen> imagenes = imagenDAO.GetImagenes(articuloID);
 
-                if (imagenes != null && imagenes.Count > 0)
-                {
-                    rptCarousel.DataSource = imagenes;
-                    rptCarousel.DataBind();
-                }
+                rptImagenes.DataSource = imagenes;
+                rptImagenes.DataBind();
             }
+        }
+
+        protected void btnPrev_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
