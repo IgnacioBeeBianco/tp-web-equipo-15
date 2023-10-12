@@ -157,5 +157,12 @@ namespace CarritoCompras_Web
             rptArticulos.DataSource= listaArticulosFiltrada;
             rptArticulos.DataBind();
         }
+
+        protected void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            string idArticulo = ((Button)sender).CommandArgument;
+            Response.Redirect("DetalleArticulo.aspx?id=" + idArticulo);
+
+        }
     }
 }
