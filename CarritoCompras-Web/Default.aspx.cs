@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -165,13 +166,38 @@ namespace CarritoCompras_Web
 
         protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
         {
+            List<Articulo> listaArticulosFiltrada = FiltrarArticulos();
 
-            CheckBox checkBox = (CheckBox)sender;
-            string brand = checkBox.Text;
-            List<Articulo> listaArticulosFiltrada = listaArticulos.Where(art => art.Marca.Descripcion == brand).ToList();
-
-            rptArticulos.DataSource= listaArticulosFiltrada;
+            rptArticulos.DataSource = listaArticulosFiltrada;
             rptArticulos.DataBind();
+
+        }
+
+        private List<Articulo> FiltrarArticulos()
+        {
+            List<Articulo> listaArticulosFiltrada = listaArticulos;
+
+            // Filtra por marca solo si hay marcas seleccionadas
+            var marcasSeleccionadas = rptBrands.Items.Cast<RepeaterItem>()
+                .Where(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked)
+                .Select(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Text);
+
+            if (marcasSeleccionadas.Any())
+            {
+                listaArticulosFiltrada = listaArticulosFiltrada.Where(art => marcasSeleccionadas.Contains(art.Marca.Descripcion)).ToList();
+            }
+
+            // Filtra por categoría solo si hay categorías seleccionadas
+            var categoriasSeleccionadas = rptCategoria.Items.Cast<RepeaterItem>()
+                .Where(item => ((CheckBox)item.FindControl("CheckBoxCategoria")).Checked)
+                .Select(item => ((CheckBox)item.FindControl("CheckBoxCategoria")).Text);
+
+            if (categoriasSeleccionadas.Any())
+            {
+                listaArticulosFiltrada = listaArticulosFiltrada.Where(art => categoriasSeleccionadas.Contains(art.Categoria.Descripcion)).ToList();
+            }
+
+            return listaArticulosFiltrada;
         }
 
         protected void btnVerDetalle_Click(object sender, EventArgs e)
@@ -183,9 +209,7 @@ namespace CarritoCompras_Web
 
         protected void CheckBoxCategoria_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox checkBox = (CheckBox)sender;
-            string categoria = checkBox.Text;
-            List<Articulo> listaArticulosFiltrada = listaArticulos.Where(art => art.Categoria.Descripcion == categoria).ToList();
+            List<Articulo> listaArticulosFiltrada = FiltrarArticulos();
 
             rptArticulos.DataSource = listaArticulosFiltrada;
             rptArticulos.DataBind();
