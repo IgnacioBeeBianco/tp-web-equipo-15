@@ -7,7 +7,7 @@
     </div>
 
     <div class="d-flex justify-content-end m-3">
-        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-primary">
+        <asp:LinkButton ID="PurchaseButton" runat="server" CssClass="btn btn-primary" OnClick="PurchaseButton_Click">
             <asp:Label ID="CartCountLabel" runat="server" CssClass="bi bi-cart"><%# itemsToCart %></asp:Label>
         </asp:LinkButton>
     </div>
@@ -64,8 +64,10 @@
                                     
                                         <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
                                         <p class="card-text"><%# Eval("Descripcion") %></p>
-                                        <p class="card-text">$<%# Eval("Precio") %></p>
-                                        <asp:Button CssClass="btn btn-primary" runat="server" Text="Agregar al carrito" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="AddToCart_Click"/>
+                                        <p class="card-text"><%# String.Format("{0:C}", Eval("Precio")) %></p>
+                                        <asp:LinkButton ID="button" runat="server" CssClass="btn btn-primary" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="AddToCart_Click">
+                                            <asp:Label ID="Label1" runat="server" Text="Añadir al carrito" ></asp:Label>
+                                        </asp:LinkButton>
                                         <a href="DetalleArticulo.aspx?id=<%#Eval("Id")%>" class="btn btn-primary">Ver detalle</a>
                                     </div>
                                 </div>

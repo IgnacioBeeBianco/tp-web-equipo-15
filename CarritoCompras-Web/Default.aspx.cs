@@ -132,20 +132,29 @@ namespace CarritoCompras_Web
 
         protected void AddToCart_Click(object sender, EventArgs e)
         {
-            Purchase purchase = new Purchase();
             itemsToCart++;
             ViewState["ItemsToCart"] = itemsToCart;
             CartCountLabel.Text = itemsToCart.ToString();
 
-            Button button = sender as Button;
+            LinkButton button = sender as LinkButton;
             int articuloId = int.Parse(button.CommandArgument);
 
-            Articulo articulo = listaArticulos.Find(art => art.Id == articuloId);
+            Purchase purchase = Session["Cart"] as Purchase;
+            if (purchase == null)
+            {
+                purchase = new Purchase();
+                purchase.Oid = 1;
+                purchase.Articulos = new List<Articulo>();
+                purchase.amount = 0;
+            }
 
-            purchase.Oid = 1;
+            Articulo articulo = listaArticulos.Find(art => art.Id == articuloId);
             purchase.Articulos.Add(articulo);
             purchase.amount += articulo.Precio;
+
+            Session["Cart"] = purchase;
         }
+
 
         protected void SortOptionsDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -180,6 +189,11 @@ namespace CarritoCompras_Web
             string idArticulo = ((Button)sender).CommandArgument;
             Response.Redirect("DetalleArticulo.aspx?id=" + idArticulo);
 
+        }
+
+        protected void PurchaseButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Carrito.aspx");
         }
     }
 }
