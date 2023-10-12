@@ -25,7 +25,9 @@ namespace CarritoCompras_Web
         private List<Categoria> listaCategorias;
         private List<Marca> listaMarca;
         private List<string> sortOptions = new List<string>();
-        public int itemsToCart = 0;
+        public int itemsToCart;
+        public Purchase Purchase;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             this.listaArticulos = CargarArticulos();
@@ -36,6 +38,11 @@ namespace CarritoCompras_Web
 
             if (!IsPostBack)
             {
+                Purchase = new Purchase(); // Crea una nueva instancia de Purchase
+                Purchase.amount = 0;
+                itemsToCart = 0;
+                ViewState["ItemsToCart"] = itemsToCart;
+                CartCountLabel.Text = itemsToCart.ToString();
                 SortOptionsDropDown.DataSource = sortOptions;
                 SortOptionsDropDown.DataBind();
                 rptBrands.DataSource = listaMarca;
@@ -45,7 +52,11 @@ namespace CarritoCompras_Web
                 rptArticulos.DataSource = listaArticulos;
                 rptArticulos.DataBind();
             }
-            
+            else
+            {
+                itemsToCart = (int)ViewState["ItemsToCart"];
+            }
+
         }
 
         private List<Articulo> CargarArticulos()
@@ -121,13 +132,19 @@ namespace CarritoCompras_Web
 
         protected void AddToCart_Click(object sender, EventArgs e)
         {
-            this.itemsToCart++;
+            Purchase purchase = new Purchase();
+            itemsToCart++;
+            ViewState["ItemsToCart"] = itemsToCart;
+            CartCountLabel.Text = itemsToCart.ToString();
 
-        }
+            Button button = sender as Button;
+            int articuloId = int.Parse(button.CommandArgument);
 
-        protected int GetItemsInCart()
-        {
-            return itemsToCart;
+            Articulo articulo = listaArticulos.Find(art => art.Id == articuloId);
+
+            purchase.Oid = 1;
+            purchase.Articulos.Add(articulo);
+            purchase.amount += articulo.Precio;
         }
 
         protected void SortOptionsDropDown_SelectedIndexChanged(object sender, EventArgs e)
