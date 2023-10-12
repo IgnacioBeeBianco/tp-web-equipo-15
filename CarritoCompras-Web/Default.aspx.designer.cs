@@ -51,15 +51,6 @@ namespace CarritoCompras_Web
         protected global::System.Web.UI.WebControls.Repeater rptCategoria;
 
         /// <summary>
-        /// Control txtFilterByName.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFilterByName;
-
-        /// <summary>
         /// Control SortOptionsDropDown.
         /// </summary>
         /// <remarks>
