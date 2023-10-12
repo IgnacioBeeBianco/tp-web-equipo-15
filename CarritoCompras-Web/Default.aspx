@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CarritoCompras_Web.Default" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -7,16 +8,18 @@
     </div>
 
     <div class="d-flex justify-content-end m-3">
+
         <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-primary">
             <asp:Label ID="CartCountLabel" runat="server" CssClass="bi bi-cart"><%# itemsToCart %></asp:Label>
         </asp:LinkButton>
+
     </div>
     <section>
         <div class="row">
             <div class="col-2 justify-content-center">
-            <div class="filter-container m-5">
-                <div class="title text-center">
-                    <h4>Categorías</h4>
+                <div class="filter-container m-5">
+                    <div class="title text-center">
+                        <h4>Categorías</h4>
 
                 </div>
                 <div class="brand-filter">
@@ -45,7 +48,6 @@
                         </asp:Repeater>
                 </div>
             </div>
-        </div>
             <div class="container d-flex flex-column justify-content-center p-4 gap-2 col-10">
                 <div class="sorts">
                     <asp:DropDownList ID="SortOptionsDropDown" runat="server" AutoPostBack="true" OnSelectedIndexChanged="SortOptionsDropDown_SelectedIndexChanged"></asp:DropDownList>
@@ -53,15 +55,14 @@
                 <div class="items d-flex flex-wrap ">
                     <asp:Repeater ID="rptArticulos" runat="server">
                         <HeaderTemplate>
-                        
                         </HeaderTemplate>
                         <ItemTemplate>
                             <div class="col-md-3">
-                                <div class="card mb-4" style="width:20rem;">
+                                <div class="card mb-4" style="width: 20rem;">
 
                                     <div class="card-body text-center">
                                         <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top" ImageUrl='<%# ((List<Dominio.Imagen>)Eval("ImagenURL")).Count > 0 ? ((List<Dominio.Imagen>)Eval("ImagenURL")).First().ImagenUrl : "~/Resources/OIP.jpg" %>' />
-                                    
+
                                         <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
                                         <p class="card-text"><%# Eval("Descripcion") %></p>
                                         <p class="card-text">$<%# Eval("Precio") %></p>
@@ -77,6 +78,6 @@
 
             </div>
         </div>
-        
+
     </section>
 </asp:Content>
