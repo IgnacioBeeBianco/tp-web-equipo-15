@@ -181,5 +181,33 @@ namespace CarritoCompras_Web
             Response.Redirect("DetalleArticulo.aspx?id=" + idArticulo);
 
         }
+
+        protected void CheckBoxCategoria_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            string categoria = checkBox.Text;
+            List<Articulo> listaArticulosFiltrada = listaArticulos.Where(art => art.Categoria.Descripcion == categoria).ToList();
+
+            rptArticulos.DataSource = listaArticulosFiltrada;
+            rptArticulos.DataBind();
+        }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            string filterText = txtFilterByName.Text;
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                List<Articulo> listaFiltrada = listaArticulos.Where(articulo => articulo.Nombre.Contains(filterText)).ToList();
+
+                rptArticulos.DataSource = listaFiltrada;
+                rptArticulos.DataBind();
+            }
+            else
+            {
+                rptArticulos.DataSource = listaArticulos;
+                rptArticulos.DataBind();
+            }
+        }
     }
 }
