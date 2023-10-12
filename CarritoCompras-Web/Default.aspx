@@ -7,38 +7,40 @@
     </div>
 
     <div class="d-flex justify-content-end m-3">
-        <button class="btn btn-primary"> 
             <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                 <i class="bi bi-cart"></i>
             </a>
 
-        </button>
     </div>
     <section>
         <div class="row">
             <div class="col-2 justify-content-center">
             <div class="filter-container m-5">
                 <div class="title text-center">
-                    <h3>Categorías</h3>
+                    <h4>Categorías</h4>
 
                 </div>
                 <div class="brand-filter">
-                <h5>Marca</h5>
+                <h6>Marca</h6>
                     <asp:Repeater ID="rptBrands" runat="server">
                         <ItemTemplate>
-                            <div class="form-check">
-                                <asp:CheckBox runat="server" Text='<%# Eval("Descripcion") %>' CssClass="text-start"/>
+                            <div>
+                                <asp:CheckBox runat="server" Text='<%# Eval("Descripcion") %>' 
+                                    ID="CheckBoxBrands" AutoPostBack="true" 
+                                    OnCheckedChanged="CheckBoxBrands_CheckedChanged" 
+                                    CommandArgument='<%# Eval("Id") %>'
+                                    />
                             </div>
-
                         </ItemTemplate>
                     </asp:Repeater>
+
                 </div>
                 <div class="category-filter">
-                    <h5 class="mt-4">Categoría</h5>
+                    <h6 class="mt-4">Categoría</h6>
                     <div class="d-flex flex-column">
                         <asp:Repeater ID="rptCategoria" runat="server">
                             <ItemTemplate>
-                                <div class="form-check">
+                                <div class="">
                                     <asp:CheckBox  runat="server" Text='<%# Eval("Descripcion") %>' CssClass="flex-row; p-1" />
 
                                 </div>

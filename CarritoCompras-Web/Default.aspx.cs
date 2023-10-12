@@ -119,47 +119,6 @@ namespace CarritoCompras_Web
             }
         }
 
-        public void OnNextImageBtnClick()
-        {
-
-        }
-
-        protected void btnNextImage_Click(object sender, EventArgs e)
-        {
-            
-            Button btnNextImage = (Button)sender;
-            RepeaterItem item = (RepeaterItem)btnNextImage.NamingContainer;
-            Image imgArticulo = (Image)item.FindControl("imgArticulo");
-            Articulo articulo = listaArticulos[item.ItemIndex];
-
-            string currentUrl = imgArticulo.ImageUrl;
-
-            int currentIndex = articulo.ImagenURL.FindIndex(img => img.ImagenUrl == currentUrl);
-
-            try
-            {
-                string nextUrl = articulo.ImagenURL[currentIndex + 1].ImagenUrl;
-                if (IsValidUrl(nextUrl) == HttpStatusCode.OK)
-                {
-                    imgArticulo.ImageUrl = nextUrl;
-                }
-                else
-                {
-                    imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
-                }
-            }
-            catch (Exception)
-            {
-                return;
-            }
-
-        }
-
-        protected void btnPrevImage_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void AddToCart_Click(object sender, EventArgs e)
         {
             this.itemsToCart++;
@@ -184,8 +143,19 @@ namespace CarritoCompras_Web
                 listaArticulos = listaArticulos.OrderByDescending(item => item.Precio).ToList();
             }
 
-            rptCategoria.DataSource = listaArticulos;
-            rptCategoria.DataBind();
+            rptArticulos.DataSource = listaArticulos;
+            rptArticulos.DataBind();
+        }
+
+        protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
+        {
+
+            CheckBox checkBox = (CheckBox)sender;
+            string brand = checkBox.Text;
+            List<Articulo> listaArticulosFiltrada = listaArticulos.Where(art => art.Marca.Descripcion == brand).ToList();
+
+            rptArticulos.DataSource= listaArticulosFiltrada;
+            rptArticulos.DataBind();
         }
     }
 }
