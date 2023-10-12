@@ -21,8 +21,7 @@
                     </div>
                     <div class="filter-container">
                         <h6 class="mt-4">Filtrar por nombre</h6>
-                        <asp:TextBox ID="txtFilterByName" runat="server"></asp:TextBox>
-                        <asp:Button Text="Filtrar" runat="server" CssClass="btn btn-primary" ID="btnFiltrar" OnClick="btnFiltrar_Click" />
+                        <asp:TextBox ID="txtFilterByName" runat="server" OnTextChanged="txtFilterByName_TextChanged" AutoPostBack="true"></asp:TextBox>
                     </div>
                     <div class="brand-filter">
                         <h6>Marca</h6>

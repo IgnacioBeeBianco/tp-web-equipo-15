@@ -56,7 +56,6 @@ namespace CarritoCompras_Web
             {
                 itemsToCart = (int)ViewState["ItemsToCart"];
             }
-
         }
 
         private List<Articulo> CargarArticulos()
@@ -192,9 +191,9 @@ namespace CarritoCompras_Web
             rptArticulos.DataBind();
         }
 
-        protected void btnFiltrar_Click(object sender, EventArgs e)
+        protected void txtFilterByName_TextChanged(object sender, EventArgs e)
         {
-            string filterText = txtFilterByName.Text;
+            string filterText = txtFilterByName.Text.Trim();
 
             if (!string.IsNullOrEmpty(filterText))
             {
