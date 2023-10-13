@@ -35,6 +35,19 @@
                 max-width: 200%;
                 height: auto;
             }
+
+        .centered-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Establece la altura al 100% del viewport */
+            text-align: center; /* Opcional, para centrar el texto dentro de los elementos */
+        }
+
+            .centered-container div {
+                margin: 10px; /* Espacio entre los elementos div */
+            }
     </style>
 
     <div class="container" id="divPrincipal" runat="server">
@@ -52,7 +65,7 @@
         <div class="info-container">
             <div>
                 <asp:Label Text="Codigo:  " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblCode"/>
+                <asp:Label Text=" " runat="server" ID="lblCode" />
             </div>
             <div>
                 <asp:Label Text="Nombre:  " runat="server" />
@@ -76,12 +89,14 @@
             </div>
         </div>
     </div>
-    <div>
-        <asp:Label Text="" runat="server" ID="lblError"/>
+    <div class="centered-container">
+        <div>
+            <asp:Label ID="lblError" runat="server" Visible="false" CssClass="alert alert-warning"></asp:Label>
+        </div>
+        <div>
+            <asp:Button Text="Volver al Inicio" runat="server" ID="btnVolver" class="btn btn-primary" OnClick="btnVolver_Click" />
+        </div>
     </div>
-    <div>
-        <asp:Button Text="Volver al Inicio" runat="server" ID="btnVolver" class="btn btn-primary" OnClick="btnVolver_Click" />
-    </div>
-    
-    
+
+
 </asp:Content>

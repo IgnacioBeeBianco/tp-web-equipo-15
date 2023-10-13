@@ -227,13 +227,13 @@ namespace CarritoCompras_Web
 
                 if (listaFiltrada.Count == 0)
                 {
-                    MensajeLabel.Text = "No se encontraron artículos con el nombre seleccionado";
-                    MensajeLabel.Visible = true;
+                    lblMensajeNoArticulos.Text = "No se encontraron artículos con el nombre seleccionado";
+                    lblMensajeNoArticulos.Visible = true;
                     SortOptionsDropDown.Visible = false;
                 }
                 else
                 {
-                    MensajeLabel.Visible = false;
+                    lblMensajeNoArticulos.Visible = false;
                     SortOptionsDropDown.Visible = true;
                 }
             }
@@ -251,7 +251,7 @@ namespace CarritoCompras_Web
                     // Verifica si se seleccionaron marcas
                     if (rptBrands.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked))
                     {
-                        mensaje += " de marca";
+                        mensaje += " de la marca";
                     }
 
                     // Verifica si se seleccionaron categorías
@@ -263,19 +263,19 @@ namespace CarritoCompras_Web
                         }
                         else
                         {
-                            mensaje += " de categoría";
+                            mensaje += " de la categoría";
                         }
                     }
 
                     mensaje += " seleccionada";
 
-                    MensajeLabel.Text = mensaje;
-                    MensajeLabel.Visible = true;
+                    lblMensajeNoArticulos.Text = mensaje;
+                    lblMensajeNoArticulos.Visible = true;
                     SortOptionsDropDown.Visible = false;
                 }
                 else
                 {
-                    MensajeLabel.Visible = false;
+                    lblMensajeNoArticulos.Visible = false;
                     SortOptionsDropDown.Visible = true;
                 }
             }

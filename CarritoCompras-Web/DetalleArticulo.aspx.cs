@@ -67,9 +67,9 @@ namespace CarritoCompras_Web
             else
             {
                 lblError.Text = "Debe seleccionar un articulo primero";
+                lblError.Visible = true;
                 btnVolver.Visible = true;
                 divPrincipal.Visible = false;
-
             }
             
         }
