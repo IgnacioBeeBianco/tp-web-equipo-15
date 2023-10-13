@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CarritoCompras_Web.Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CarritoCompras_Web.Default"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -26,6 +26,7 @@
             restaurarPosicionScroll();
         }
     </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -46,10 +47,6 @@
             <div class="col-2 justify-content-center">
 
                 <div class="filter-container m-5">
-
-                    <div class="title text-center">
-                        <h4>Categorías</h4>
-                    </div>
 
                     <div class="filter-container">
                         <h6 class="mt-4">Buscar</h6>
@@ -120,4 +117,5 @@
         </div>
 
     </section>
+
 </asp:Content>

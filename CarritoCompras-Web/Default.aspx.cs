@@ -21,7 +21,6 @@ namespace CarritoCompras_Web
 {
     public partial class Default : System.Web.UI.Page
     {
-
         private List<Articulo> listaArticulos;
         private List<Categoria> listaCategorias;
         private List<Marca> listaMarca;
