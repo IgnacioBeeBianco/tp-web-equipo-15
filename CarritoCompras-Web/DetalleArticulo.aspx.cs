@@ -46,7 +46,7 @@ namespace CarritoCompras_Web
                 lblDescripcion.Text = articulo.Descripcion;
                 lblCategoria.Text = articulo.Categoria.Descripcion;
                 lblMarca.Text = articulo.Marca.Descripcion;
-                lblPrecio.Text = articulo.Precio.ToString();
+                lblPrecio.Text = "$ " + articulo.Precio.ToString();
 
                 btnVolver.Visible = false;
                 

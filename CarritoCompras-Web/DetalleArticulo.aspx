@@ -1,94 +1,101 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="DetalleArticulo.aspx.cs" Inherits="CarritoCompras_Web.DetalleArticulo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <style>
         .container {
             display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            justify-content: space-between;
+        }
+
+        #imagenContainer {
+            width: 900px;
+            margin-left: 0.5%;
+            margin-top: 7%;
+            padding: 10px;
+        }
+
+        .card-img-top {
+            width: 900px;
+            height: 600px;
         }
 
         .info-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            margin-top: 20%;
+            flex: 1;
+            padding: 30px;
         }
 
-            .info-container div {
-                display: flex;
-                justify-content: flex-start;
-                margin-bottom: 5px;
-            }
-
-        .card {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .lblText {
+            font-size: 18px;
+            font-weight: bold;
+            color: #A0D732;
+            text-decoration: underline;
         }
 
-            .card img {
-                max-width: 200%;
-                height: auto;
-            }
+        .lblInfo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #A0A7AD;
+        }
 
         .centered-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Establece la altura al 100% del viewport */
-            text-align: center; /* Opcional, para centrar el texto dentro de los elementos */
+            height: 90vh;
+            text-align: center;
         }
 
             .centered-container div {
-                margin: 10px; /* Espacio entre los elementos div */
+                margin: 10px;
             }
     </style>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="container" id="divPrincipal" runat="server">
-        <div id="imagenContainer" class="card" style="width: 18rem;">
+
+        <div id="imagenContainer" class="card">
             <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top" AlternateText="Artículo" />
             <div class="card-body">
                 <h5 class="card-title" runat="server" id="lblTitulo"></h5>
                 <p class="card-text" runat="server" id="P1"></p>
-                <div class="text-center">
+                <div class="button-container text-center">
                     <asp:Button Text="Prev" runat="server" ID="btnPrev" class="btn btn-primary" OnClick="btnPrev_Click" />
                     <asp:Button Text="Next" runat="server" ID="btnNext" class="btn btn-primary" OnClick="btnNext_Click" />
                 </div>
             </div>
         </div>
+
         <div class="info-container">
             <div>
-                <asp:Label Text="Codigo:  " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblCode" />
+                <asp:Label Text="Codigo:" runat="server" CssClass="lblText" />
+                <asp:Label Text="   " runat="server" ID="lblCode" CssClass="lblInfo" />
             </div>
             <div>
-                <asp:Label Text="Nombre:  " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblNombre" />
+                <asp:Label Text="Nombre:" runat="server" CssClass="lblText" />
+                <asp:Label Text="   " runat="server" ID="lblNombre" CssClass="lblInfo" />
             </div>
             <div>
-                <asp:Label Text="Descripción:  " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblDescripcion" />
+                <asp:Label Text="Descripción:" runat="server" CssClass="lblText" />
+                <asp:Label Text="   " runat="server" ID="lblDescripcion" CssClass="lblInfo" />
             </div>
             <div>
-                <asp:Label Text="Marca:  " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblMarca" />
+                <asp:Label Text="Marca:" runat="server" CssClass="lblText" />
+                <asp:Label Text="   " runat="server" ID="lblMarca" CssClass="lblInfo" />
             </div>
             <div>
-                <asp:Label Text="Categoria:  " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblCategoria" />
+                <asp:Label Text="Categoria:" runat="server" CssClass="lblText" />
+                <asp:Label Text="   " runat="server" ID="lblCategoria" CssClass="lblInfo" />
             </div>
             <div>
-                <asp:Label Text="Precio: $ " runat="server" />
-                <asp:Label Text=" " runat="server" ID="lblPrecio" />
+                <asp:Label Text="Precio:" runat="server" CssClass="lblText" />
+                <asp:Label Text="   " runat="server" ID="lblPrecio" CssClass="lblInfo" />
             </div>
         </div>
     </div>
+
     <div class="centered-container">
         <div>
             <asp:Label ID="lblError" runat="server" Visible="false" CssClass="alert alert-warning"></asp:Label>
