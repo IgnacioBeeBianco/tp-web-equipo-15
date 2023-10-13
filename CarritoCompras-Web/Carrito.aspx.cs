@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -13,88 +14,140 @@ namespace CarritoCompras_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Purchase cart = GetCartSession();
+
             if (!IsPostBack)
             {
-                if (Session["Cart"] != null)
+                if (cart != null)
                 {
-                    LoadTable();
-                    CartPanel.Visible = true;
-                    CartTable.Visible = true;
-                    NoItemsLabel.Visible = false;
-                    SummaryPanel.Visible = true;
-                    
+                    LoadTable(cart);
+                    ShowCart();
+                    HideNoItemsLabel();
+                    SummaryPanel.DataBind();
                 }
                 else
                 {
-                    CartTable.Visible = false;
-                    NoItemsLabel.Visible = true;
-                    SummaryPanel.Visible = false;   
+                    HideCart();
+                    ShowNoItemsLabel();
+                }
+            }
+            else
+            {
+                if (cart != null)
+                {
+                    if (cart.Articulos.Count > 0)
+                    {
+                        LoadTable(cart);
+                        ShowCart();
+                        HideNoItemsLabel();
+                    }
+                    else
+                    {
+                        HideCart();
+                        ShowNoItemsLabel();
+                    }
+                }
+                else
+                {
+                    HideCart();
+                    ShowNoItemsLabel();
                 }
             }
         }
 
-        private void LoadTable()
+        private void ShowCart()
         {
-            Purchase cart = Session["Cart"] as Purchase;
-            cart.Articulos.ForEach(articulo =>
+            CartPanel.Visible = true;
+            TableContent.Visible = true;
+            SummaryPanel.Visible = true;
+        }
+
+        private void HideCart()
+        {
+            CartPanel.Visible = false;
+            TableContent.Visible = false;
+            SummaryPanel.Visible = false;
+        }
+
+        private void ShowNoItemsLabel()
+        {
+            NoItemsLabel.Visible = true;
+        }
+
+        private void HideNoItemsLabel()
+        {
+            NoItemsLabel.Visible = false;
+        }
+        
+
+        private Purchase GetCartSession()
+        {
+            try
             {
-                TableRow row = new TableRow();
+                return Session["Cart"] as Purchase;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-                TableCell imageCell = new TableCell();
-                if (articulo.ImagenURL.Any())
-                {
-                    Image image = new Image();
-                    image.ImageUrl = articulo.ImagenURL.First().ImagenUrl;
-                    image.CssClass = "img-fluid";
-                    imageCell.Controls.Add(image);
-                }
-                row.Cells.Add(imageCell);
+        private void LoadTable(Purchase cart)
+        {
+            TableContent.DataSource = cart.Articulos;
+            TableContent.DataBind();
+        }
 
-                TableCell nombreCell = new TableCell();
-                nombreCell.Text = articulo.Nombre;
-                row.Cells.Add(nombreCell);
-
-
-                TableCell precioCell = new TableCell();
-                precioCell.Text = articulo.Precio.ToString("C");
-                row.Cells.Add(precioCell);
-
-                TableCell accionesCell = new TableCell();
-
-                Button removeButton = new Button();
-                removeButton.Text = "Eliminar";
-                removeButton.CommandName = "Remove";
-                removeButton.CommandArgument = articulo.Id.ToString();
-                removeButton.Command += RemoveButton_Command;
-                removeButton.CssClass = "remove-button";
-                accionesCell.Controls.Add(removeButton);
-                row.Cells.Add(accionesCell);
-
-                imageCell.CssClass = "item-image w-25";
-                nombreCell.CssClass = "item-name";
-                precioCell.CssClass = "item-price";
-                accionesCell.CssClass = "item-actions";
-                removeButton.CssClass = "remove-button";
-
-                CartTable.Rows.Add(row);
-
-            });
+        private void RefreshSession(Purchase purchase)
+        {
+            Session["Cart"] = purchase;
+            Session["itemsToCart"] = purchase.Articulos.Count();
         }
 
         protected void RemoveButton_Command(object sender, CommandEventArgs e)
         {
-            if (e.CommandName == "Remove")
+            int articuloId = int.Parse(((LinkButton)sender).CommandArgument);
+            Purchase cart = Session["Cart"] as Purchase;
+            if(cart != null)
             {
-                int articuloId = Convert.ToInt32(e.CommandArgument);
-
-                if (Session["Cart"] != null)
+                Articulo articulo = cart.Articulos.First(art => art.Key.Id == articuloId).Key;
+                if(articulo != null)
                 {
-                    Purchase cart = Session["Cart"] as Purchase;
-                    cart.Articulos.RemoveAt(articuloId);
-                    Session["Cart"] = cart;
+                    cart.Articulos.Remove(articulo);
                 }
             }
+
+            LoadTable(cart); 
+
+            if(cart.Articulos.Count < 1)
+            {
+                HideCart();
+                ShowNoItemsLabel();
+            }
+
+            RefreshSession(cart);
         }
+
+        protected decimal GetTotalAmount()
+        {
+            Purchase purchase = GetCartSession();
+
+            return purchase.TotalAmount;
+        }
+
+        protected int GetTotalItems()
+        {
+            Purchase purchase = GetCartSession();
+            int totalItems = 0;
+
+            foreach (var quantity in purchase.Articulos.Values)
+            {
+                totalItems += quantity;
+            }
+
+            return totalItems;
+        }
+
 
     }
 }

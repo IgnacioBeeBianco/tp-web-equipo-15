@@ -42,13 +42,13 @@ namespace CarritoCompras_Web
         protected global::System.Web.UI.WebControls.Panel CartContent;
 
         /// <summary>
-        /// Control CartTable.
+        /// Control TableContent.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table CartTable;
+        protected global::System.Web.UI.WebControls.Repeater TableContent;
 
         /// <summary>
         /// Control SummaryPanel.

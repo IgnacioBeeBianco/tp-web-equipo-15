@@ -38,25 +38,51 @@ namespace CarritoCompras_Web
 
             if (!IsPostBack)
             {
-                Purchase = new Purchase(); // Crea una nueva instancia de Purchase
-                Purchase.amount = 0;
-                itemsToCart = 0;
-                ViewState["ItemsToCart"] = itemsToCart;
+                Purchase = new Purchase();
+                if (Session["itemsToCart"] == null)
+                {
+                    Session["itemsToCart"] = 0;
+                }
+                else
+                {
+                    itemsToCart = (int)Session["ItemsToCart"];
+                }
                 CartCountLabel.Text = itemsToCart.ToString();
-                SortOptionsDropDown.DataSource = sortOptions;
-                SortOptionsDropDown.DataBind();
-                rptBrands.DataSource = listaMarca;
-                rptBrands.DataBind();
-                rptCategoria.DataSource = listaCategorias;
-                rptCategoria.DataBind();
-                rptArticulos.DataSource = listaArticulos;
-                rptArticulos.DataBind();
+                LoadSortOptions(sortOptions);
+                LoadMarcasRepeater(listaMarca);
+                LoadCategoriasRepeater(listaCategorias);
+                LoadArticulosRepeater(listaArticulos);
             }
             else
             {
-                itemsToCart = (int)ViewState["ItemsToCart"];
+                itemsToCart = (int)Session["ItemsToCart"];
+                CartCountLabel.Text = itemsToCart.ToString();
             }
 
+        }
+
+        private void LoadArticulosRepeater(List<Articulo> articulos)
+        {
+            rptArticulos.DataSource = articulos;
+            rptArticulos.DataBind();
+        }
+
+        private void LoadCategoriasRepeater(List<Categoria> categorias)
+        {
+            rptCategoria.DataSource = categorias;
+            rptCategoria.DataBind();
+        }
+
+        private void LoadMarcasRepeater(List<Marca> marcas)
+        {
+            rptBrands.DataSource = marcas;
+            rptBrands.DataBind();
+        }
+
+        private void LoadSortOptions(List<String> sortOptions)
+        {
+            SortOptionsDropDown.DataSource = sortOptions;
+            SortOptionsDropDown.DataBind();
         }
 
         private List<Articulo> CargarArticulos()
@@ -133,24 +159,30 @@ namespace CarritoCompras_Web
         protected void AddToCart_Click(object sender, EventArgs e)
         {
             itemsToCart++;
-            ViewState["ItemsToCart"] = itemsToCart;
+            Session["ItemsToCart"] = itemsToCart;
             CartCountLabel.Text = itemsToCart.ToString();
 
             LinkButton button = sender as LinkButton;
             int articuloId = int.Parse(button.CommandArgument);
+            Articulo articulo = listaArticulos.Find(art => art.Id == articuloId);
 
             Purchase purchase = Session["Cart"] as Purchase;
-            if (purchase == null)
+            if (purchase != null)
+            {
+                if (purchase.Articulos.ContainsKey(articulo))
+                {
+                    purchase.Articulos[articulo] += 1;
+                }
+                else
+                {
+                    purchase.Articulos[articulo] = 1;
+                }
+            }
+            else
             {
                 purchase = new Purchase();
-                purchase.Oid = 1;
-                purchase.Articulos = new List<Articulo>();
-                purchase.amount = 0;
+                purchase.Articulos.Add(articulo, 1);
             }
-
-            Articulo articulo = listaArticulos.Find(art => art.Id == articuloId);
-            purchase.Articulos.Add(articulo);
-            purchase.amount += articulo.Precio;
 
             Session["Cart"] = purchase;
         }
@@ -169,8 +201,7 @@ namespace CarritoCompras_Web
                 listaArticulos = listaArticulos.OrderByDescending(item => item.Precio).ToList();
             }
 
-            rptArticulos.DataSource = listaArticulos;
-            rptArticulos.DataBind();
+            LoadArticulosRepeater(listaArticulos);
         }
 
         protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
@@ -180,8 +211,7 @@ namespace CarritoCompras_Web
             string brand = checkBox.Text;
             List<Articulo> listaArticulosFiltrada = listaArticulos.Where(art => art.Marca.Descripcion == brand).ToList();
 
-            rptArticulos.DataSource= listaArticulosFiltrada;
-            rptArticulos.DataBind();
+            LoadArticulosRepeater(listaArticulosFiltrada);
         }
 
         protected void btnVerDetalle_Click(object sender, EventArgs e)
@@ -195,5 +225,6 @@ namespace CarritoCompras_Web
         {
             Response.Redirect("Carrito.aspx");
         }
+
     }
 }
