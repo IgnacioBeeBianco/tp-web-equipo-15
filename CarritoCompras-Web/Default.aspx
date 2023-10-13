@@ -1,6 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CarritoCompras_Web.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        // Función para guardar la posición del scroll en sessionStorage
+        function guardarPosicionScroll() {
+            var scrollY = window.scrollY || document.documentElement.scrollTop;
+            sessionStorage.setItem("scrollPosition", scrollY);
+        }
+
+        // Función para restaurar la posición del scroll desde sessionStorage
+        function restaurarPosicionScroll() {
+            var scrollY = parseInt(sessionStorage.getItem("scrollPosition"));
+            if (!isNaN(scrollY)) {
+                window.scrollTo(0, scrollY);
+            }
+        }
+
+        // Registra un evento antes de la recarga de la página para guardar la posición del scroll
+        window.onbeforeunload = function () {
+            guardarPosicionScroll();
+        }
+
+        // Registra un evento después de cargar la página para restaurar la posición del scroll
+        window.onload = function () {
+            restaurarPosicionScroll();
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="hero-content wv-100 text-center h-50 d-flex justify-content-start align-items-center" style="background-image: url('/Resources/pexels-jéshoots-238118.jpg'); background-size: cover;">
@@ -55,6 +80,9 @@
                 <div class="sorts">
                     <asp:DropDownList ID="SortOptionsDropDown" runat="server" AutoPostBack="true" OnSelectedIndexChanged="SortOptionsDropDown_SelectedIndexChanged"></asp:DropDownList>
                 </div>
+
+                <asp:Label ID="MensajeLabel" runat="server" Visible="false" CssClass="alert alert-warning"></asp:Label>
+
                 <div class="items d-flex flex-wrap ">
                     <asp:Repeater ID="rptArticulos" runat="server">
                         <HeaderTemplate>

@@ -61,7 +61,7 @@ namespace CarritoCompras_Web
 
         private List<Articulo> CargarArticulos()
         {
-            ArticuloNegocio negocio = new ArticuloNegocio(); 
+            ArticuloNegocio negocio = new ArticuloNegocio();
 
             return negocio.listar();
 
@@ -83,21 +83,22 @@ namespace CarritoCompras_Web
         {
             if (!IsPostBack)
             {
-                if(e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
                 {
-                    Articulo articulo = (Articulo) e.Item.DataItem;
-                    Image imgArticulo = (Image)e.Item.FindControl("imgArticulo"); 
+                    Articulo articulo = (Articulo)e.Item.DataItem;
+                    Image imgArticulo = (Image)e.Item.FindControl("imgArticulo");
                     if (articulo.ImagenURL.Count > 0 || articulo.ImagenURL != null)
                     {
                         try
                         {
-                        
+
                             if (IsValidUrl(articulo.ImagenURL.First().ImagenUrl) == HttpStatusCode.OK)
                             {
                                 imgArticulo.ImageUrl = articulo.ImagenURL.First().ImagenUrl;
                             }
-                        
-                        }catch (Exception)
+
+                        }
+                        catch (Exception)
                         {
                             imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
                         }
@@ -110,7 +111,7 @@ namespace CarritoCompras_Web
                 }
 
             }
-            
+
         }
 
         private HttpStatusCode IsValidUrl(string url)
@@ -124,7 +125,7 @@ namespace CarritoCompras_Web
                     return response.StatusCode;
                 }
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 throw e;
             }
@@ -164,15 +165,6 @@ namespace CarritoCompras_Web
             rptArticulos.DataBind();
         }
 
-        protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
-        {
-            List<Articulo> listaArticulosFiltrada = FiltrarArticulos();
-
-            rptArticulos.DataSource = listaArticulosFiltrada;
-            rptArticulos.DataBind();
-
-        }
-
         private List<Articulo> FiltrarArticulos()
         {
             List<Articulo> listaArticulosFiltrada = listaArticulos;
@@ -207,15 +199,22 @@ namespace CarritoCompras_Web
 
         }
 
+        protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
+        {
+            ActualizarFiltrosYMostrarMensaje();
+        }
+
         protected void CheckBoxCategoria_CheckedChanged(object sender, EventArgs e)
         {
-            List<Articulo> listaArticulosFiltrada = FiltrarArticulos();
-
-            rptArticulos.DataSource = listaArticulosFiltrada;
-            rptArticulos.DataBind();
+            ActualizarFiltrosYMostrarMensaje();
         }
 
         protected void txtFilterByName_TextChanged(object sender, EventArgs e)
+        {
+            ActualizarFiltrosYMostrarMensaje();
+        }
+        
+        private void ActualizarFiltrosYMostrarMensaje()
         {
             string filterText = txtFilterByName.Text.Trim();
 
@@ -225,12 +224,62 @@ namespace CarritoCompras_Web
 
                 rptArticulos.DataSource = listaFiltrada;
                 rptArticulos.DataBind();
+
+                if (listaFiltrada.Count == 0)
+                {
+                    MensajeLabel.Text = "No se encontraron artículos con el nombre seleccionado";
+                    MensajeLabel.Visible = true;
+                    SortOptionsDropDown.Visible = false;
+                }
+                else
+                {
+                    MensajeLabel.Visible = false;
+                    SortOptionsDropDown.Visible = true;
+                }
             }
             else
             {
-                rptArticulos.DataSource = listaArticulos;
+                List<Articulo> listaArticulosFiltrada = FiltrarArticulos();
+
+                rptArticulos.DataSource = listaArticulosFiltrada;
                 rptArticulos.DataBind();
+
+                if (listaArticulosFiltrada.Count == 0)
+                {
+                    string mensaje = "No se encontraron artículos";
+
+                    // Verifica si se seleccionaron marcas
+                    if (rptBrands.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked))
+                    {
+                        mensaje += " de marca";
+                    }
+
+                    // Verifica si se seleccionaron categorías
+                    if (rptCategoria.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxCategoria")).Checked))
+                    {
+                        if (rptBrands.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked))
+                        {
+                            mensaje += " y categoría";
+                        }
+                        else
+                        {
+                            mensaje += " de categoría";
+                        }
+                    }
+
+                    mensaje += " seleccionada";
+
+                    MensajeLabel.Text = mensaje;
+                    MensajeLabel.Visible = true;
+                    SortOptionsDropDown.Visible = false;
+                }
+                else
+                {
+                    MensajeLabel.Visible = false;
+                    SortOptionsDropDown.Visible = true;
+                }
             }
         }
+
     }
 }
