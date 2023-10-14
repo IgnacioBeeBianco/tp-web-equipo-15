@@ -15,6 +15,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Web.UI.WebControls.Image;
+using Label = System.Web.UI.WebControls.Label;
 
 namespace CarritoCompras_Web
 {
@@ -105,57 +106,6 @@ namespace CarritoCompras_Web
             return marcaNegocio.list();
         }
 
-        protected void rptArticulos_ItemCreated(object sender, RepeaterItemEventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                if(e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                {
-                    Articulo articulo = (Articulo) e.Item.DataItem;
-                    Image imgArticulo = (Image)e.Item.FindControl("imgArticulo"); 
-                    if (articulo.ImagenURL.Count > 0 || articulo.ImagenURL != null)
-                    {
-                        try
-                        {
-                        
-                            if (IsValidUrl(articulo.ImagenURL.First().ImagenUrl) == HttpStatusCode.OK)
-                            {
-                                imgArticulo.ImageUrl = articulo.ImagenURL.First().ImagenUrl;
-                            }
-                        
-                        }catch (Exception)
-                        {
-                            imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
-                        }
-
-                    }
-                    else
-                    {
-                        imgArticulo.ImageUrl = "~/Resources/OIP.jpg";
-                    }
-                }
-
-            }
-            
-        }
-
-        private HttpStatusCode IsValidUrl(string url)
-        {
-            try
-            {
-                HttpWebRequest request = WebRequest.CreateHttp(url);
-                request.Method = "GET";
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    return response.StatusCode;
-                }
-            }
-            catch(Exception e) 
-            {
-                throw e;
-            }
-        }
-
         protected void AddToCart_Click(object sender, EventArgs e)
         {
             itemsToCart++;
@@ -226,5 +176,63 @@ namespace CarritoCompras_Web
             Response.Redirect("Carrito.aspx");
         }
 
+        private bool isValidUrl(string url)
+        {
+            try
+            {
+                HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+                request.Method = "HEAD";
+                request.Timeout = 5000;
+
+                using(HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    int statusCode = (int)response.StatusCode;
+                    if(statusCode >= 100 && statusCode < 400)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }catch(WebException ex)
+            {
+                if(ex.Status == WebExceptionStatus.ProtocolError)
+                {
+                    return false;
+                }
+            }catch (Exception)
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        protected void rptArticulos_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            RepeaterItem item = e.Item;
+            Image image = item.FindControl("imgArticulo") as Image;
+            int articuloId;
+            Label lblIdArticulo = item.FindControl("IdArticulo") as Label;
+            int.TryParse(lblIdArticulo.Text, out articuloId);
+
+            Articulo articulo = listaArticulos.Find(art => art.Id ==  articuloId);
+            
+            if(articulo != null)
+            {
+                string url = articulo.ImagenURL.First().ImagenUrl;
+                if (isValidUrl(url))
+                {
+                    image.ImageUrl = url;
+                }
+                else
+                {
+                    image.ImageUrl = "~/Resources/OID.jpg";
+                }
+            }
+            
+        }
     }
 }
