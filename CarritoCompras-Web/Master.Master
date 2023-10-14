@@ -45,23 +45,23 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
             <footer class="bg-dark text-white p-4">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12 text-center">
-                                <h3>Trabajo practico 4</h3>
-                                <p>Carrito de compras utilizando ASP.NET</p>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-12 text-center mx-auto">
-                                <p>2023 UTN FRGP</p>
-                            </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 text-center">
+                            <h3>Trabajo practico 4</h3>
+                            <p>Carrito de compras utilizando ASP.NET</p>
                         </div>
                     </div>
-             </footer>
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center mx-auto">
+                            <p>2023 UTN FRGP</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-        
-       
+
+
 
     </form>
 

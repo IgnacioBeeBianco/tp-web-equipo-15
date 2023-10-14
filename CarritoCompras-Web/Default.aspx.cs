@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -21,7 +22,6 @@ namespace CarritoCompras_Web
 {
     public partial class Default : System.Web.UI.Page
     {
-
         private List<Articulo> listaArticulos;
         private List<Categoria> listaCategorias;
         private List<Marca> listaMarca;
@@ -88,7 +88,7 @@ namespace CarritoCompras_Web
 
         private List<Articulo> CargarArticulos()
         {
-            ArticuloNegocio negocio = new ArticuloNegocio(); 
+            ArticuloNegocio negocio = new ArticuloNegocio();
 
             return negocio.listar();
 
@@ -154,14 +154,31 @@ namespace CarritoCompras_Web
             LoadArticulosRepeater(listaArticulos);
         }
 
-        protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
+        private List<Articulo> FiltrarArticulos()
         {
+            List<Articulo> listaArticulosFiltrada = listaArticulos;
 
-            CheckBox checkBox = (CheckBox)sender;
-            string brand = checkBox.Text;
-            List<Articulo> listaArticulosFiltrada = listaArticulos.Where(art => art.Marca.Descripcion == brand).ToList();
+            // Filtra por marca solo si hay marcas seleccionadas
+            var marcasSeleccionadas = rptBrands.Items.Cast<RepeaterItem>()
+                .Where(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked)
+                .Select(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Text);
 
-            LoadArticulosRepeater(listaArticulosFiltrada);
+            if (marcasSeleccionadas.Any())
+            {
+                listaArticulosFiltrada = listaArticulosFiltrada.Where(art => marcasSeleccionadas.Contains(art.Marca.Descripcion)).ToList();
+            }
+
+            // Filtra por categoría solo si hay categorías seleccionadas
+            var categoriasSeleccionadas = rptCategoria.Items.Cast<RepeaterItem>()
+                .Where(item => ((CheckBox)item.FindControl("CheckBoxCategoria")).Checked)
+                .Select(item => ((CheckBox)item.FindControl("CheckBoxCategoria")).Text);
+
+            if (categoriasSeleccionadas.Any())
+            {
+                listaArticulosFiltrada = listaArticulosFiltrada.Where(art => categoriasSeleccionadas.Contains(art.Categoria.Descripcion)).ToList();
+            }
+
+            return listaArticulosFiltrada;
         }
 
         protected void btnVerDetalle_Click(object sender, EventArgs e)
@@ -169,6 +186,21 @@ namespace CarritoCompras_Web
             string idArticulo = ((Button)sender).CommandArgument;
             Response.Redirect("DetalleArticulo.aspx?id=" + idArticulo);
 
+        }
+
+        protected void CheckBoxBrands_CheckedChanged(object sender, EventArgs e)
+        {
+            ActualizarFiltrosYMostrarMensaje();
+        }
+
+        protected void CheckBoxCategoria_CheckedChanged(object sender, EventArgs e)
+        {
+            ActualizarFiltrosYMostrarMensaje();
+        }
+
+        protected void txtFilterByName_TextChanged(object sender, EventArgs e)
+        {
+            ActualizarFiltrosYMostrarMensaje();
         }
 
         protected void PurchaseButton_Click(object sender, EventArgs e)
@@ -234,5 +266,73 @@ namespace CarritoCompras_Web
             }
             
         }
+        
+        private void ActualizarFiltrosYMostrarMensaje()
+        {
+            string filterText = txtFilterByName.Text.Trim();
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                List<Articulo> listaFiltrada = listaArticulos.Where(articulo => articulo.Nombre.Contains(filterText)).ToList();
+
+                rptArticulos.DataSource = listaFiltrada;
+                rptArticulos.DataBind();
+
+                if (listaFiltrada.Count == 0)
+                {
+                    lblMensajeNoArticulos.Text = "No se encontraron artículos con el nombre seleccionado";
+                    lblMensajeNoArticulos.Visible = true;
+                    SortOptionsDropDown.Visible = false;
+                }
+                else
+                {
+                    lblMensajeNoArticulos.Visible = false;
+                    SortOptionsDropDown.Visible = true;
+                }
+            }
+            else
+            {
+                List<Articulo> listaArticulosFiltrada = FiltrarArticulos();
+
+                rptArticulos.DataSource = listaArticulosFiltrada;
+                rptArticulos.DataBind();
+
+                if (listaArticulosFiltrada.Count == 0)
+                {
+                    string mensaje = "No se encontraron artículos";
+
+                    // Verifica si se seleccionaron marcas
+                    if (rptBrands.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked))
+                    {
+                        mensaje += " de la marca";
+                    }
+
+                    // Verifica si se seleccionaron categorías
+                    if (rptCategoria.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxCategoria")).Checked))
+                    {
+                        if (rptBrands.Items.Cast<RepeaterItem>().Any(item => ((CheckBox)item.FindControl("CheckBoxBrands")).Checked))
+                        {
+                            mensaje += " y categoría";
+                        }
+                        else
+                        {
+                            mensaje += " de la categoría";
+                        }
+                    }
+
+                    mensaje += " seleccionada";
+
+                    lblMensajeNoArticulos.Text = mensaje;
+                    lblMensajeNoArticulos.Visible = true;
+                    SortOptionsDropDown.Visible = false;
+                }
+                else
+                {
+                    lblMensajeNoArticulos.Visible = false;
+                    SortOptionsDropDown.Visible = true;
+                }
+            }
+        }
+
     }
 }

@@ -33,6 +33,15 @@ namespace CarritoCompras_Web
         protected global::System.Web.UI.WebControls.Label CartCountLabel;
 
         /// <summary>
+        /// Control txtFilterByName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFilterByName;
+
+        /// <summary>
         /// Control rptBrands.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace CarritoCompras_Web
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList SortOptionsDropDown;
+
+        /// <summary>
+        /// Control lblMensajeNoArticulos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensajeNoArticulos;
 
         /// <summary>
         /// Control rptArticulos.
