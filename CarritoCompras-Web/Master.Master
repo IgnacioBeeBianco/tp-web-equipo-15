@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- TODO: Mover a un styles.css -->
     <style>
         * {
           font-family: 'Nunito', sans-serif;
@@ -24,21 +25,13 @@
     <form id="form1" runat="server">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="Default.aspx">Inicio</a>
+                <div class="text-center m-2">
+                    <a class="navbar-brand ms-3" href="Default.aspx">mishmash</a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="DetalleArticulo.aspx">Detalle Articulo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Carrito Compras</a>
-                        </li>
-                    </ul>
-
-                </div>
+                
             </div>
         </nav>
         <div class="container-fluid vh-100 vw-100 vw-100" style="padding: 0">

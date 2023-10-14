@@ -160,7 +160,7 @@
                 <div class="justify-content-center">
                     <div class="filter-container m-5">
                         <div class="title text-center">
-                            <h4>Categorías</h4>
+                            <h4>Filtros</h4>
                             <div class="filter-container">
                                 <h6 class="mt-4">Buscar</h6>
                                 <asp:TextBox ID="txtFilterByName" runat="server" OnTextChanged="txtFilterByName_TextChanged" AutoPostBack="true"></asp:TextBox>
@@ -199,6 +199,9 @@
                     <div class="sorts">
                         <asp:DropDownList ID="SortOptionsDropDown" runat="server" AutoPostBack="true" OnSelectedIndexChanged="SortOptionsDropDown_SelectedIndexChanged"></asp:DropDownList>
                     </div>
+
+                    <asp:Label ID="lblMensajeNoArticulos" runat="server" Visible="false" CssClass="alert alert-warning"></asp:Label>
+
                     <div class="items">
                         <asp:Repeater ID="rptArticulos" runat="server" OnItemDataBound="rptArticulos_ItemDataBound">
                             <ItemTemplate>

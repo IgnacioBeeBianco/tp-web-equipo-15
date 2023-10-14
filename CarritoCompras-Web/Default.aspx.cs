@@ -242,6 +242,15 @@ namespace CarritoCompras_Web
             return false;
         }
 
+        private string GetFirstImageUrl(Articulo articulo)
+        {
+            if(articulo.ImagenURL.Count > 0)
+            {
+                return articulo.ImagenURL.First().ImagenUrl;
+            }
+            return null;
+        }
+
         protected void rptArticulos_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             RepeaterItem item = e.Item;
@@ -254,10 +263,17 @@ namespace CarritoCompras_Web
             
             if(articulo != null)
             {
-                string url = articulo.ImagenURL.First().ImagenUrl;
-                if (isValidUrl(url))
+                string url = GetFirstImageUrl(articulo);
+                if(url != null)
                 {
-                    image.ImageUrl = url;
+                    if (isValidUrl(url))
+                    {
+                        image.ImageUrl = url;
+                    }
+                    else
+                    {
+                        image.ImageUrl = "~/Resources/OID.jpg";
+                    }
                 }
                 else
                 {
