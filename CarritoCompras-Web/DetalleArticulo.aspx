@@ -1,58 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="DetalleArticulo.aspx.cs" Inherits="CarritoCompras_Web.DetalleArticulo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style>
-        .container {
-            display: flex;
-        }
-
-        #imagenContainer {
-            width: 900px;
-            margin-left: 0.5%;
-            margin-top: 7%;
-            padding: 10px;
-        }
-
-        .card-img-top {
-            width: 900px;
-            height: 600px;
-        }
-
-        .info-container {
-            margin-top: 20%;
-            flex: 1;
-            padding: 30px;
-        }
-
-        .lblText {
-            font-size: 18px;
-            font-weight: bold;
-            color: #A0D732;
-            text-decoration: underline;
-        }
-
-        .lblInfo {
-            font-size: 16px;
-            font-weight: bold;
-            color: #A0A7AD;
-        }
-
-        .centered-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 90vh;
-            text-align: center;
-        }
-
-            .centered-container div {
-                margin: 10px;
-            }
-    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+   
 
     <div class="container" id="divPrincipal" runat="server">
 

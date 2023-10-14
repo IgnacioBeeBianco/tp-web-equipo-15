@@ -13,20 +13,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/estilos.css">
+    <script src="~/Content/funcionesJS.js"></script>
 </head>
 <body>
-    <!-- TODO: Mover a un styles.css -->
-    <style>
-        * {
-          font-family: 'Nunito', sans-serif;
-        }  
-
-    </style>
     <form id="form1" runat="server">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <div class="text-center m-2">
-                    <a class="navbar-brand ms-3" href="Default.aspx">mishmash</a>
+                    <a class="navbar-brand ms-3" href="Default.aspx">Inicio</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
