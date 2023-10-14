@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CarritoCompras_Web.Default"%>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CarritoCompras_Web.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -31,115 +31,114 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
         .section {
-          margin: 20px;
+            margin: 20px;
         }
 
         .hero-content {
-          background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Resources/pexels-jéshoots-238118.jpg');
-          background-size: cover;
-          background-position: center;
-          color: #fff;
-          text-align: center;
-          padding: 100px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Resources/pexels-jéshoots-238118.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
         }
 
-        .hero-content h1 {
-          font-size: 36px;
-          font-weight: bold;
-        }
+            .hero-content h1 {
+                font-size: 36px;
+                font-weight: bold;
+            }
 
         .btn-primary {
-          background-color: #007BFF;
-          color: #fff;
-          padding: 10px 20px;
-          border: none;
-          transition: background-color 0.3s;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            transition: background-color 0.3s;
         }
 
-        .btn-primary:hover {
-          background-color: #0056b3;
-        }
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
 
         .bi-cart {
-          font-size: 24px;
-          margin-right: 10px;
+            font-size: 24px;
+            margin-right: 10px;
         }
 
         .filter-container {
-          background-color: #f5f5f5;
-          padding: 20px;
-          border-radius: 5px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
         }
 
         .brand-filter h6, .category-filter h6 {
-          font-size: 18px;
-          font-weight: bold;
-          margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         input[type="checkbox"] {
-          margin: 10px 0;
+            margin: 10px 0;
         }
 
         .items {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
         .card {
-          background-color: #fff;
-          border-radius: 5px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: box-shadow 0.3s;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
         }
 
-        .card:hover {
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+            .card:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
 
         .card-title {
-          font-size: 20px;
-          font-weight: bold;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .card-text {
-          font-size: 14px;
+            font-size: 14px;
         }
 
         .btn-primary {
-          background-color: #007BFF;
-          color: #fff;
-          padding: 8px 16px;
-          text-decoration: none;
-          display: inline-block;
-          border-radius: 4px;
-          transition: background-color 0.3s;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+            transition: background-color 0.3s;
         }
 
-        .btn-primary:hover {
-          background-color: #0056b3;
-        }
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
 
         .cart-count {
-            background-color: #ff6347; 
-            color: #fff; 
-            border-radius: 50%; 
-            padding: 5px 10px; 
-            font-size: 16px; 
+            background-color: #ff6347;
+            color: #fff;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 16px;
         }
 
         .cart-button {
             display: inline-block;
-            padding: 10px 20px; 
+            padding: 10px 20px;
         }
 
-        
-        .cart-button i {
-            font-size: 24px; 
-            margin-right: 5px; 
-        }
 
+            .cart-button i {
+                font-size: 24px;
+                margin-right: 5px;
+            }
     </style>
     <div class="hero-content wv-100 text-center h-50 d-flex justify-content-start align-items-center" style="background-image: url('/Resources/pexels-jéshoots-238118.jpg'); background-size: cover;">
         <h1 class="ms-5">Catálogo de productos</h1>
@@ -170,25 +169,27 @@
                             <h6>Marca</h6>
                             <asp:Repeater ID="rptBrands" runat="server">
                                 <ItemTemplate>
-                                 <div>
-                                    <asp:CheckBox runat="server" Text='<%# Eval("Descripcion") %>' 
-                                        ID="CheckBoxBrands" AutoPostBack="true" 
-                                        OnCheckedChanged="CheckBoxBrands_CheckedChanged" 
-                                        CommandArgument='<%# Eval("Id") %>'
-                                        />
-                                </div>
-                            </ItemTemplate>
+                                    <div>
+                                        <asp:CheckBox runat="server" Text='<%# Eval("Descripcion") %>'
+                                            ID="CheckBoxBrands" AutoPostBack="true"
+                                            OnCheckedChanged="CheckBoxBrands_CheckedChanged"
+                                            CommandArgument='<%# Eval("Id") %>' />
+                                    </div>
+                                </ItemTemplate>
                             </asp:Repeater>
                         </div>
                         <div class="category-filter">
                             <h6 class="mt-4">Categoría</h6>
-                                <asp:Repeater ID="rptCategoria" runat="server">
-                                    <ItemTemplate>
-                                        <div>
-                                            <asp:CheckBox  runat="server" Text='<%# Eval("Descripcion") %>' CssClass="flex-row; p-1" />
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                            <asp:Repeater ID="rptCategoria" runat="server">
+                                <ItemTemplate>
+                                    <div>
+                                        <asp:CheckBox runat="server" Text='<%# Eval("Descripcion") %>'
+                                            ID="CheckBoxCategoria" AutoPostBack="true"
+                                            OnCheckedChanged="CheckBoxCategoria_CheckedChanged"
+                                            CommandArgument='<%# Eval("Id") %>' />
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
                     </div>
                 </div>
@@ -211,7 +212,7 @@
                                         <div class="card-body text-center">
                                             <asp:Label ID="IdArticulo" runat="server" Text='<%# Eval("Id") %>' Visible="false"></asp:Label>
                                             <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top w-50" />
-                                    
+
                                             <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
                                             <p class="card-text"><%# Eval("Descripcion") %></p>
                                             <p class="card-text"><%# String.Format("{0:C}", Eval("Precio")) %></p>
@@ -230,7 +231,7 @@
                 </div>
             </div>
         </div>
-        
+
     </section>
 
 </asp:Content>
