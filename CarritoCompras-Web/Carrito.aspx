@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-    
+    <link rel="stylesheet" type="text/css" href="Content/estilos.css">
 
     <div class="content">
         <div class="m-5">

@@ -13,8 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Content/estilos.css">
-    <script src="~/Content/funcionesJS.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">

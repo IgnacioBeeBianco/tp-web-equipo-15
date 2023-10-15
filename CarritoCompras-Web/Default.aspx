@@ -3,6 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <script type="text/javascript" src="Content/funcionesJS.js"></script>
+    <link rel="stylesheet" type="text/css" href="Content/estilos.css">
 
     <div class="hero-content wv-100 text-center h-50 d-flex justify-content-start align-items-center" style="background-image: url('/Resources/pexels-jéshoots-238118.jpg'); background-size: cover;">
         <h1 class="ms-5">Catálogo de productos</h1>

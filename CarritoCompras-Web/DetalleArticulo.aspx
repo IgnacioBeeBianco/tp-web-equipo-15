@@ -5,12 +5,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-   
+    <link rel="stylesheet" type="text/css" href="Content/estilos.css">
 
     <div class="container" id="divPrincipal" runat="server">
 
         <div id="imagenContainer" class="card">
-            <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top" AlternateText="Artículo" />
+            <asp:Image ID="imgArticulo1" runat="server" CssClass="card-img-top1" AlternateText="Artículo" />
             <div class="card-body">
                 <h5 class="card-title" runat="server" id="lblTitulo"></h5>
                 <p class="card-text" runat="server" id="P1"></p>

@@ -55,12 +55,12 @@ namespace CarritoCompras_Web
 
                 if (imagenes.Count > 0)
                 {
-                    imgArticulo.ImageUrl = imagenes[0].ImagenUrl;
+                    imgArticulo1.ImageUrl = imagenes[0].ImagenUrl;
                     
                 }
                 else
                 {
-                    imgArticulo.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQwdj-kVHd2ows7cDiCsnSXFdzUv3j2Ns9r0S7HGKKtrBGZRkkrmcvJ5VJEM4nPNEPhUw&usqp=CAU";
+                    imgArticulo1.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQwdj-kVHd2ows7cDiCsnSXFdzUv3j2Ns9r0S7HGKKtrBGZRkkrmcvJ5VJEM4nPNEPhUw&usqp=CAU";
                 }
                 Session["ArticuloImages"] = imagenes;
             }
@@ -82,7 +82,7 @@ namespace CarritoCompras_Web
             if (currentIndex > 0)
             {
                 currentIndex--;
-                imgArticulo.ImageUrl = imagenes[currentIndex].ImagenUrl;
+                imgArticulo1.ImageUrl = imagenes[currentIndex].ImagenUrl;
                 Session["ImageIndex"] = currentIndex;
             }
         }
@@ -95,7 +95,7 @@ namespace CarritoCompras_Web
             if (currentIndex < imagenes.Count - 1)
             {
                 currentIndex++;
-                imgArticulo.ImageUrl = imagenes[currentIndex].ImagenUrl;
+                imgArticulo1.ImageUrl = imagenes[currentIndex].ImagenUrl;
                 Session["ImageIndex"] = currentIndex;
             }
         }
