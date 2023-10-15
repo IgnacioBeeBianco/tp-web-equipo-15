@@ -86,7 +86,9 @@
                             <ItemTemplate>
                                 <tr>
                                     <td>
-                                        <asp:Image ID="imgArticulo" runat="server" Width="150px" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "Key.ImagenURL[0].ImagenUrl") ?? "~/Resources/OIP.jpg" %>' />
+                                        <asp:Image ID="imgArticulo" runat="server" Width="150px" ImageUrl='<%# ((List<Dominio.Imagen>)DataBinder.Eval(Container.DataItem, "Key.ImagenUrl")).Count > 0 ? ((List<Dominio.Imagen>)DataBinder.Eval(Container.DataItem, "Key.ImagenUrl"))[0].ImagenUrl : "~/Resources/OID.jpg" %>'
+/>
+                                        <asp:Label ID="ArticuloId" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Key.Id") %>'></asp:Label>
                                     </td>
                                     <td>
                                         <asp:Literal runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Key.Nombre") %>' />

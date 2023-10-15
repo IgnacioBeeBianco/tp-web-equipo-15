@@ -205,12 +205,12 @@
                     <div class="items">
                         <asp:Repeater ID="rptArticulos" runat="server" OnItemDataBound="rptArticulos_ItemDataBound">
                             <ItemTemplate>
-                                <div class="col-sm-12 col-lg-5">
+                                <div class="col-12">
                                     <div class="card mb-4 w-100">
 
                                         <div class="card-body text-center">
                                             <asp:Label ID="IdArticulo" runat="server" Text='<%# Eval("Id") %>' Visible="false"></asp:Label>
-                                            <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top w-50" />
+                                            <asp:Image ID="imgArticulo" runat="server" CssClass="card-img-top w-25" />
                                     
                                             <h5 class="card-title mt-3"><%# Eval("Nombre") %></h5>
                                             <p class="card-text"><%# Eval("Descripcion") %></p>
