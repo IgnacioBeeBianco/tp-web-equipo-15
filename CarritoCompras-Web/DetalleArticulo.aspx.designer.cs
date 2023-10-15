@@ -24,13 +24,13 @@ namespace CarritoCompras_Web
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPrincipal;
 
         /// <summary>
-        /// Control imgArticulo.
+        /// Control imgArticulo1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgArticulo;
+        protected global::System.Web.UI.WebControls.Image imgArticulo1;
 
         /// <summary>
         /// Control lblTitulo.

@@ -2,64 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style>
-        table {
-           
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        .remove-button {
-            background-color: none; 
-            color: black;
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-
-        .hyperlink{
-            margin-left: 3rem;
-            text-align: start;
-            text-decoration: none;
-            color: black;
-            cursor: pointer;
-        }
-
-        .summary-box{
-            text-align: left;
-            background-color: #eeeeee;
-            height: 400px;
-            padding: 2rem;
-        }
-
-        .line {
-            border: 0;
-            border-top: 1px solid #000; 
-        }
-
-        .custom-input{
-            background: none;
-            color: #999999;
-        }
-
-        .custom-span{
-            background: none;
-            color: #999999;
-        }
-
-        .panel-span{
-            color: #999999;
-        }
-
-        
-
-    </style>
+    
+    <link rel="stylesheet" type="text/css" href="Content/estilos.css">
 
     <div class="content">
         <div class="m-5">
